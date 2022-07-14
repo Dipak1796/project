@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                var url = "http://localhost:13000/dept?DEPTNO=" + $("input[name='deptno']").val();
+                //alert(url);
+                $.get(url, function (data, status) {
+                    if (status == "success")
+                    {
+                        var str = "<table border=1>";
+                        var emps = JSON.parse(data);
+                        for (i = 0; i < emps.length; i++) {
+                            str += "<tr>";
+                            str += "<td>" + emps[i].EMPNO + "</td>";
+                            str += "<td>" + emps[i].ENAME + "</td>";
+                            var d = new Date(emps[i].HIREDATE);
+                            var t = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
+                            str += "<td>" + t + "</td>";
+                            str += "<td>" + emps[i].JOB + "</td>";
+                            str += "</tr>";
+                        }
+                        str += "</table>";
+                        $("#details").html(str);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <form>
+        Dept No:<input type="number" id="dept" name="deptno" />
+    </form>
+    <button>Get Info</button>
+    <div id="details"></div>
+</body>
+</html>

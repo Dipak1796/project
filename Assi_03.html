@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#uid").blur(function () {
+                var url = "http://localhost:13000/user?uid=" + $("input[name='userid']").val();
+                //alert(url);
+                $.get(url, function (data, status) {
+                    if (status == "success")
+                        $("#msg").html(data);
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Registration Form</h1>
+    <form>
+        <table>
+            <tr>
+                <td>UserName:</td>
+                <td><input type="text" name="name" id="name"/></td>
+            </tr>
+            <tr>
+                <td>User ID :</td>
+                <td> <input type="text" id="uid" name="userid"/></td>
+                <td style="color:red" id="msg"></td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td><input type="password" name="pwd" id="pwd"/></td>
+            </tr> 
+        </table>
+    </form>
+    <button>Submit</button>
+</body>
+</html>
